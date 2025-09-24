@@ -28,3 +28,9 @@ It provides a complete learning journey with curated resources, flowcharts, and 
 ---
 
 ## 📂 Project Structure
+├── index.html # Main landing page and app structure
+├── style.css # UI styling and responsiveness
+├── script.js # Core functionality, data-driven roadmaps & logic
+└── assets/ # (Optional) Images, icons, or additional resources
+
+
