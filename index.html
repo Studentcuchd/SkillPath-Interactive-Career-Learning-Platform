@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillPath - Interactive Career & Learning Platform</title>
+    <meta name="description" content="Complete career guidance platform with roadmaps, flowcharts, resources, and step-by-step learning paths">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">SkillPath</div>
+            <div class="nav-buttons">
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span class="welcome-text" id="welcomeText">Welcome!</span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
+                <div id="authButtons">
+                    <button class="btn btn-outline" onclick="openModal('login')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('signup')">Sign Up</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1>Master Your Future</h1>
+                        <p>Your complete career guidance platform with interactive roadmaps, step-by-step learning paths, and comprehensive resources. Everything you need to build your dream career in one place.</p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
+                            <button class="btn btn-primary" onclick="showSection('skills')">🚀 Explore Skills</button>
+                            <button class="btn btn-outline" onclick="showSection('dashboard')">📊 View Dashboard</button>
+                        </div>
+                    </div>
+
+                    <div class="hero-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">🗺️</div>
+                            <h3>Interactive Roadmaps</h3>
+                            <p>Visual learning paths with step-by-step guidance</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">✅</div>
+                            <h3>Progress Tracking</h3>
+                            <p>Monitor your learning journey and achievements</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📚</div>
+                            <h3>Rich Resources</h3>
+                            <p>Curated tutorials, courses, and practice materials</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Career Focus</h3>
+                            <p>Industry-aligned skills and real-world projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <button class="btn back-btn" onclick="showSection('home')">← Back to Home</button>
+
+                <div class="skills-header">
+                    <h2>Choose Your Learning Path</h2>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Select skills that match your interests and career goals. Each skill comes with a complete roadmap and resources.</p>
+                </div>
+
+                <div class="skills-filter">
+                    <button class="filter-btn active" onclick="filterSkills('all')">All Skills</button>
+                    <button class="filter-btn" onclick="filterSkills('programming')">Programming</button>
+                    <button class="filter-btn" onclick="filterSkills('design')">Design</button>
+                    <button class="filter-btn" onclick="filterSkills('business')">Business</button>
+                    <button class="filter-btn" onclick="filterSkills('data')">Data Science</button>
+                    <button class="filter-btn" onclick="filterSkills('cloud')">Cloud & DevOps</button>
+                </div>
+
+                <div class="skills-grid" id="skillsGrid">
+                    <!-- Skills will be dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <button class="btn back-btn" onclick="showSection('home')">← Back to Home</button>
+
+                <div class="skills-header">
+                    <h2>Your Learning Dashboard</h2>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;">Track your progress and see how far you've come</p>
+                </div>
+
+                <div class="progress-overview">
+                    <div class="progress-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="skillsStarted">0</div>
+                            <div class="stat-label">Skills Started</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="skillsCompleted">0</div>
+                            <div class="stat-label">Skills Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalProgress">0%</div>
+                            <div class="stat-label">Overall Progress</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="streakDays">0</div>
+                            <div class="stat-label">Day Streak</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-bar-container">
+                        <div class="progress-label">
+                            <span>Overall Learning Progress</span>
+                            <span id="overallProgressText">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="overallProgressBar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="userSkillsProgress">
+                    <!-- User's skill progress will be shown here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap Section -->
+        <section id="roadmap" class="section">
+            <div class="container">
+                <button class="btn back-btn" onclick="showSection('skills')">← Back to Skills</button>
+
+                <div class="roadmap-header">
+                    <h2 id="roadmapTitle">Skill Roadmap</h2>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;" id="roadmapDescription">Follow this structured path to master your chosen skill</p>
+                </div>
+
+                <div class="roadmap-tabs">
+                    <button class="tab-btn active" onclick="showTab('flowchart')">🗺️ Flowchart</button>
+                    <button class="tab-btn" onclick="showTab('steps')">📋 Step-by-Step</button>
+                    <button class="tab-btn" onclick="showTab('resources')">📚 All Resources</button>
+                </div>
+
+                <div class="roadmap-content">
+                    <!-- Flowchart Tab -->
+                    <div id="flowchart" class="flowchart active">
+                        <div class="flowchart-container" id="flowchartContainer">
+                            <!-- Flowchart will be dynamically generated -->
+                        </div>
+                    </div>
+
+                    <!-- Steps Tab -->
+                    <div id="steps" class="roadmap-steps">
+                        <div id="stepsContainer">
+                            <!-- Steps will be dynamically populated -->
+                        </div>
+                    </div>
+
+                    <!-- Resources Tab -->
+                    <div id="resources" class="roadmap-steps">
+                        <div id="resourcesContainer">
+                            <!-- All resources grouped by category -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Welcome Back</h3>
+                <p class="modal-subtitle" id="modalSubtitle">Sign in to track your progress</p>
+            </div>
+
+            <form id="authForm">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" id="password" class="form-input" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="authSubmit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="success-message">
+        <span id="successText">Success!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
